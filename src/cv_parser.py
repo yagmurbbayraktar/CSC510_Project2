@@ -42,4 +42,3 @@ def cvAnalizer (CV):
     # closing the pdf file object
     pdfFileObj.close()
     return(existing)
-
