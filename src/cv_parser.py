@@ -38,7 +38,7 @@ def cvAnalizer (CV):
             if s.lower() in text_fixed.lower():
                 existing.append(s)
     
-    print(existing)
+    #print(existing)
     # closing the pdf file object
     pdfFileObj.close()
     return(existing)
