@@ -19,6 +19,8 @@ app.config["MONGO_URI"] = "mongodb://localhost:27017/job_analyzer"
 mongodb_client = PyMongo(app)
 db = mongodb_client.db
 
+def get_results(table, offset=0, per_page=5):
+    return table[offset: offset+per_page]
 
 @app.route('/')
 def index():
