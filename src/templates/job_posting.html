@@ -2,7 +2,20 @@
 {% block content %}
 <h1 style="text-align:left;font-weight: 600;padding:5px 0;float:left;">{% block title %} Find your jobs here {% endblock %}</h1>
 <h3 style="color:red;padding:5px 0;text-align:right;float:right;font-family: Chalkduster;" >{{ job_count }} jobs found!!!</h4>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<table>
+<tbody>
 {% for table in tables %}
-            {{ table|safe }}
+<tr>
+    <td>
+        {{ table|safe }}
+    </td>
+</tr>
 {% endfor %}
+
+</tbody>
+</table>
+{{pagination.links}}
 {% endblock %}
