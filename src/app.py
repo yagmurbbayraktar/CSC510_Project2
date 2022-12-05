@@ -17,7 +17,7 @@ import numpy as np  # noqa: E402
 import os  # noqa: E402
 try:
     from src.cv_parser import cvAnalizer  # noqa: E402
-except:
+except:# noqa: E722
     from cv_parser import cvAnalizer  # noqa: E402
 from werkzeug.utils import secure_filename  # noqa: E402
 app = Flask(__name__)
