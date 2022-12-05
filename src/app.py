@@ -8,15 +8,14 @@ license that can be found in the LICENSE file or at
 https://opensource.org/licenses/MIT.
 """
 from flask import Flask, render_template, request, redirect, url_for  # noqa: E402
-from flask_paginate import Pagination, get_page_args
+from flask_paginate import Pagination, get_page_args# noqa: E402
 from flask_pymongo import PyMongo  # noqa: E402
 from pandas import DataFrame  # noqa: E402
 import re  # noqa: E402
 import numpy as np  # noqa: E402
-import string
-import os
-from src.cv_parser import cvAnalizer
-from werkzeug.utils import secure_filename
+import os# noqa: E402
+from src.cv_parser import cvAnalizer# noqa: E402
+from werkzeug.utils import secure_filename# noqa: E402
 app = Flask(__name__)
 
 app.config["MONGO_URI"] = "mongodb://localhost:27017/job_analyzer"
@@ -25,6 +24,7 @@ db = mongodb_client.db
 app.config['UPLOAD_FOLDER'] = 'upload/'
 
 string = ""
+
 @app.route('/upload')
 def upload_file():
     """
