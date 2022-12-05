@@ -39,35 +39,16 @@ def search():
     Upon submission fetches the job postings from the database and renders job_posting.html
     """
     if request.method == 'POST':
-        job_df = read_from_db(request, db)
-        job_count = job_df.shape[0]
-        if job_df.empty:
-            job_count = 0
-            return render_template('no_jobs.html', job_count=job_count)
-        job_df = job_df.drop('Job Description', axis=1)
-        job_df = job_df.drop('_id', axis=1)
-        job_df = job_df.drop('Industries', axis=1)
-        job_df = job_df.drop('Job function', axis=1)
-        job_df = job_df.drop('Total Applicants', axis=1)
-        job_df['Job Link'] = '<a href=' + job_df['Job Link'] + '><div>' + " Apply " + '</div></a>'
-        job_link = job_df.pop("Job Link")
-        job_df.insert(7, "Job Link", job_link)
-        job_df['Job Link'] = job_df['Job Link'].fillna('----')
-        return render_template('job_posting.html', job_count=job_count,
-                               tables=['''
-    <style>
-        .table-class {border-collapse: collapse;    margin: 24px 0;    font-size: 1em;
-        font-family: sans-serif;    min-width: 500px;    box-shadow: 0 0 19px rgba(0, 0, 0, 0.16);}
-        .table-class thead tr {background-color: #009878;    color: #ffffff;    text-align: left;}
-        .table-class th,.table-class td {    text-align:center; padding: 12.4px 15.2px;}
-        .table-class tbody tr {border-bottom: 1.1px solid #dddddd;}
-        .table-class tbody tr:nth-of-type(even) {    background-color: #f3f3f3;}
-        .table-class tbody tr:last-of-type {    border-bottom: 2.1px solid #009878;}
-        .table-class tbody tr.active-row {  font-weight: bold;    color: #009878;}
-        table tr th { text-align:center; }
-    </style>
-    ''' + job_df.to_html(classes="table-class", render_links=True, escape=False)],
-            titles=job_df.columns.values)
+        # print("WE ARE HERE !!!!!!!!1")
+        # print (request.form.get("skills"))
+        # data = {'title':request.form.get('title'),'type':request.form.get('type'),'skills':request.form.get('skills'),'location':request.form.get('location'),'companyName':request.form.get('companyName')}
+        # data = [request.form.get('title'),request.form.get('type'),request.form.get('skills'),request.form.get('location'),request.form.get('companyName')]
+        title = request.form.get('title')
+        type = request.form.get('type')
+        skills = request.form.get('skills')
+        location = request.form.get('location')
+        companyName = request.form.get('companyName')
+        return redirect(url_for('results',title=title, type=type, skills=skills, location=location, companyName=companyName))
     return render_template('get_job_postings.html')
 
 
