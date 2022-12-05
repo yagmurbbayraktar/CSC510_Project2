@@ -13,14 +13,55 @@ from flask_pymongo import PyMongo  # noqa: E402
 from pandas import DataFrame  # noqa: E402
 import re  # noqa: E402
 import numpy as np  # noqa: E402
+import string
+import os
+from src.cv_parser import cvAnalizer
+from werkzeug.utils import secure_filename
 app = Flask(__name__)
 
 app.config["MONGO_URI"] = "mongodb://localhost:27017/job_analyzer"
 mongodb_client = PyMongo(app)
 db = mongodb_client.db
+app.config['UPLOAD_FOLDER'] = 'upload/'
+
+string = ""
+@app.route('/upload')
+def upload_file():
+    """
+    Route: '/upload'
+    The upload function renders the upload.html page.
+    """
+    return render_template('upload.html')
+
+@app.route('/uploader',methods=['GET','POST'])
+def uploader():
+    """
+    Route: '/uploader'
+    The uploader function requires users to take a local file(resume) as a input, it will save the file in the program root path
+    And then, will scan the resume through to find the relative skills maybe used.
+    """
+    if request.method == 'POST':
+        f = request.files['file']
+        print(request.files)
+        f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
+        list1 = cvAnalizer(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
+        global string
+        string = ""
+        for each in list1:
+            string += each
+            string += ","
+
+        return render_template('uploadsuccess.html', string = string)
+
+    else:
+
+        return render_template('upload.html')
+
 
 def get_results(table, offset=0, per_page=5):
     return table[offset: offset+per_page]
+
+
 
 @app.route('/')
 def index():
@@ -46,6 +87,18 @@ def search():
         companyName = request.form.get('companyName')
         return redirect(url_for('results',title=title, type=type, skills=skills, location=location, companyName=companyName))
     return render_template('get_job_postings.html')
+
+@app.route('/search2/', methods=('GET', 'POST'))
+def search2():
+    if request.method == 'POST':
+        title = request.form.get('title')
+        type = request.form.get('type')
+        skills = request.form.get('skills')
+        location = request.form.get('location')
+        companyName = request.form.get('companyName')
+        return redirect(url_for('results',title=title, type=type, skills=skills, location=location, companyName=companyName))
+    return render_template('get_job_postings2.html', string = string)
+
 
 @app.route('/results/')
 def results():
