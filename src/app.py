@@ -118,7 +118,7 @@ def results():
     companyName_set = request.args['companyName']
     skills_list = [s.strip() for s in skills_set.split(',')]
     company_list = [c.strip() for c in companyName_set.split(',')]
-    job_df = get_job_df(title=title, type=type, skills_list=skills_list, 
+    job_df = get_job_df(title=title, type=type, skills_list=skills_list,
                         location=location, company_list=company_list, db=db)
     job_count = job_df.shape[0]
     if job_df.empty:
@@ -151,7 +151,7 @@ def results():
     table tr th { text-align:center; }
  </style>
  ''' + Pagination_results.to_html(classes="table-class", render_links=True, escape=False)],
- titles=job_df.columns.values, table=Pagination_results, page=page, per_page=per_page, pagination=pagination)
+   titles=job_df.columns.values, table=Pagination_results, page=page, per_page=per_page, pagination=pagination)  # noqa: E128
 
 
 def add(db, job_data):
