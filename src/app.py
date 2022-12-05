@@ -17,7 +17,7 @@ import numpy as np  # noqa: E402
 import os  # noqa: E402
 try:
     from src.cv_parser import cvAnalizer  # noqa: E402
-except:
+except:  # noqa: E722
     from cv_parser import cvAnalizer  # noqa: E402
 from werkzeug.utils import secure_filename  # noqa: E402
 app = Flask(__name__)
@@ -118,7 +118,8 @@ def results():
     companyName_set = request.args['companyName']
     skills_list = [s.strip() for s in skills_set.split(',')]
     company_list = [c.strip() for c in companyName_set.split(',')]
-    job_df = get_job_df(title=title, type=type, skills_list=skills_list, location=location, company_list=company_list, db=db)
+    job_df = get_job_df(title=title, type=type, skills_list=skills_list,
+                        location=location, company_list=company_list, db=db)
     job_count = job_df.shape[0]
     if job_df.empty:
         job_count = 0
@@ -137,7 +138,7 @@ def results():
     Pagination_results = get_results(job_df, int(offset), int(per_page))
     pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')
     return render_template('job_posting.html', job_count=job_count,
-                            tables=['''
+                           tables=['''
  <style>
     .table-class {border-collapse: collapse;    margin: 24px 0;    font-size: 1em;
     font-family: sans-serif;    min-width: 500px;    box-shadow: 0 0 19px rgba(0, 0, 0, 0.16);}
@@ -150,7 +151,7 @@ def results():
     table tr th { text-align:center; }
  </style>
  ''' + Pagination_results.to_html(classes="table-class", render_links=True, escape=False)],
-        titles=job_df.columns.values, table=Pagination_results, page=page, per_page=per_page, pagination=pagination)
+   titles=job_df.columns.values, table=Pagination_results, page=page, per_page=per_page, pagination=pagination)  # noqa: E128
 
 
 def add(db, job_data):
@@ -204,7 +205,7 @@ def read_from_db(title, type, skills, location, companyName, db):
 def get_job_df(title, type, skills_list, location, company_list, db):
     """
     The get_job_df function searches all the job description from mango db database
-    Based on multiple skills, company name and append all the results by removing the 
+    Based on multiple skills, company name and append all the results by removing the
     Duplicates rows and finally returns a DataFrame with the details
     """
     job_df = DataFrame()

@@ -12,7 +12,7 @@ def cvAnalizer(CV):
     pdfFileObj = open(CV, 'rb')
 
     # initializing punctuations string
-    punc = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+    punc = r'''!()-[]{};:'"\,<>./?@#$%^&*_~'''
     # creating a pdf reader object
     pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
     # printing number of pages in pdf file

@@ -20,7 +20,7 @@ def test_search_page():
     This test verifies that search page displays the user input form correctly
     """
 
-    response = app.test_client().get('/search')
+    response = app.test_client().get('/search/')
     assert response.status_code == 200
     assert b"Job Title" in response.data
     assert b"Location" in response.data
@@ -35,13 +35,13 @@ def test_search_page_submit():
     """
 
     add_sample_data()
-    response = app.test_client().post("/search", data={
+    response = app.test_client().post("/search/", data={
         "title": "",
         "type": "",
         "location": "",
         "companyName": "",
         "skills": "",
-    })
+    }, follow_redirects=True)
     assert response.status_code == 200
 
 
@@ -49,13 +49,13 @@ def test_search_page_submit_zero_results():
     """
     This test verifies that the search page works correctly when given input does not match any entries in the database
     """
-    response = app.test_client().post("/search", data={
+    response = app.test_client().post("/search/", data={
         "title": "zzzzzzzzzzz",
         "type": "yyyyyyyyyyy",
         "location": "xxxxxxx",
         "companyName": "wwwwwwww",
         "skills": "vvvvvvvvv",
-    })
+    }, follow_redirects=True)
     assert response.status_code == 200
     assert b"Sorry, there are no current openings with given criteria"
 
