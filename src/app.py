@@ -39,10 +39,6 @@ def search():
     Upon submission fetches the job postings from the database and renders job_posting.html
     """
     if request.method == 'POST':
-        # print("WE ARE HERE !!!!!!!!1")
-        # print (request.form.get("skills"))
-        # data = {'title':request.form.get('title'),'type':request.form.get('type'),'skills':request.form.get('skills'),'location':request.form.get('location'),'companyName':request.form.get('companyName')}
-        # data = [request.form.get('title'),request.form.get('type'),request.form.get('skills'),request.form.get('location'),request.form.get('companyName')]
         title = request.form.get('title')
         type = request.form.get('type')
         skills = request.form.get('skills')
@@ -53,18 +49,14 @@ def search():
 
 @app.route('/results/')
 def results():
-    # print(request.args['data'])
     title = request.args['title']
     type = request.args['type']
     skills = request.args['skills']
     location = request.args['location']
     companyName = request.args['companyName']
-
-    print("AYYYYYY !!!!!!!!!1")
     job_df = read_from_db(title, type, skills, location, companyName, db)
-    print('After')
-    print(job_df)
     job_count = job_df.shape[0]
+    
     if job_df.empty:
         job_count = 0
         return render_template('no_jobs.html', job_count=job_count)
@@ -78,13 +70,9 @@ def results():
     job_df.insert(7, "Job Link", job_link)
     job_df['Job Link'] = job_df['Job Link'].fillna('----')
     page, per_page, offset = list(get_page_args(page_parameter="page", per_page_parameter="per_page"))
-    print(page, per_page, offset)
     total = job_count
     Pagination_results = get_results(job_df, int(offset), int(per_page))
-    print (Pagination_results)
     pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')
-    print("JUST HERE !!!!!!!!!!!!!!!!1111")
-    print (job_df.index)
     return render_template('job_posting.html', job_count=job_count,
                             tables=['''
 <style>
