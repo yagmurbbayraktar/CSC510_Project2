@@ -8,14 +8,14 @@ license that can be found in the LICENSE file or at
 https://opensource.org/licenses/MIT.
 """
 from flask import Flask, render_template, request, redirect, url_for  # noqa: E402
-from flask_paginate import Pagination, get_page_args# noqa: E402
+from flask_paginate import Pagination, get_page_args  # noqa: E402
 from flask_pymongo import PyMongo  # noqa: E402
 from pandas import DataFrame  # noqa: E402
 import re  # noqa: E402
 import numpy as np  # noqa: E402
-import os# noqa: E402
-from src.cv_parser import cvAnalizer# noqa: E402
-from werkzeug.utils import secure_filename# noqa: E402
+import os  # noqa: E402
+from src.cv_parser import cvAnalizer  # noqa: E402
+from werkzeug.utils import secure_filename  # noqa: E402
 app = Flask(__name__)
 
 app.config["MONGO_URI"] = "mongodb://localhost:27017/job_analyzer"
@@ -25,6 +25,7 @@ app.config['UPLOAD_FOLDER'] = 'upload/'
 
 string = ""
 
+
 @app.route('/upload')
 def upload_file():
     """
@@ -33,12 +34,14 @@ def upload_file():
     """
     return render_template('upload.html')
 
-@app.route('/uploader',methods=['GET','POST'])
+
+@app.route('/uploader', methods=['GET', 'POST'])
 def uploader():
     """
     Route: '/uploader'
-    The uploader function requires users to take a local file(resume) as a input, it will save the file in the program root path
-    And then, will scan the resume through to find the relative skills maybe used.
+    The uploader function requires users to take a local file(resume) as a input, it will save the 
+    file in the program root path And then, will scan the resume through to find the relative skills
+    maybe used.
     """
     if request.method == 'POST':
         f = request.files['file']
@@ -51,7 +54,7 @@ def uploader():
             string += each
             string += ","
 
-        return render_template('uploadsuccess.html', string = string)
+        return render_template('uploadsuccess.html', string=string)
 
     else:
 
@@ -60,7 +63,6 @@ def uploader():
 
 def get_results(table, offset=0, per_page=5):
     return table[offset: offset+per_page]
-
 
 
 @app.route('/')
@@ -85,8 +87,10 @@ def search():
         skills = request.form.get('skills')
         location = request.form.get('location')
         companyName = request.form.get('companyName')
-        return redirect(url_for('results',title=title, type=type, skills=skills, location=location, companyName=companyName))
+        return redirect(url_for('results', title=title, type=type, skills=skills, location=location, 
+                                companyName=companyName))
     return render_template('get_job_postings.html')
+
 
 @app.route('/search2/', methods=('GET', 'POST'))
 def search2():
@@ -96,8 +100,9 @@ def search2():
         skills = request.form.get('skills')
         location = request.form.get('location')
         companyName = request.form.get('companyName')
-        return redirect(url_for('results',title=title, type=type, skills=skills, location=location, companyName=companyName))
-    return render_template('get_job_postings2.html', string = string)
+        return redirect(url_for('results', title=title, type=type, skills=skills, location=location, 
+                                companyName=companyName))
+    return render_template('get_job_postings2.html', string=string)
 
 
 @app.route('/results/')
@@ -109,7 +114,6 @@ def results():
     companyName = request.args['companyName']
     job_df = read_from_db(title, type, skills, location, companyName, db)
     job_count = job_df.shape[0]
-    
     if job_df.empty:
         job_count = 0
         return render_template('no_jobs.html', job_count=job_count)
@@ -128,7 +132,7 @@ def results():
     pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')
     return render_template('job_posting.html', job_count=job_count,
                             tables=['''
-<style>
+ <style>
     .table-class {border-collapse: collapse;    margin: 24px 0;    font-size: 1em;
     font-family: sans-serif;    min-width: 500px;    box-shadow: 0 0 19px rgba(0, 0, 0, 0.16);}
     .table-class thead tr {background-color: #009878;    color: #ffffff;    text-align: left;}
@@ -138,8 +142,8 @@ def results():
     .table-class tbody tr:last-of-type {    border-bottom: 2.1px solid #009878;}
     .table-class tbody tr.active-row {  font-weight: bold;    color: #009878;}
     table tr th { text-align:center; }
-</style>
-''' + Pagination_results.to_html(classes="table-class", render_links=True, escape=False)],
+ </style>
+ ''' + Pagination_results.to_html(classes="table-class", render_links=True, escape=False)],
         titles=job_df.columns.values, table=Pagination_results, page=page, per_page=per_page, pagination=pagination)
 
 
