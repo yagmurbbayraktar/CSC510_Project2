@@ -1,4 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>{% block title %} File Upload Successfully {% endblock %}</h1>
+<h3 style="color:red;padding:5px 0;text-align:left;float:left;font-family: Chalkduster;" > Finishing scanning</h4>
+<br>
+<br>
+<br>
+<body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ url_for('search2')}}">back to Search</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 {% endblock %}
