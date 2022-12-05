@@ -51,6 +51,56 @@ def search():
         return redirect(url_for('results',title=title, type=type, skills=skills, location=location, companyName=companyName))
     return render_template('get_job_postings.html')
 
+@app.route('/results/')
+def results():
+    # print(request.args['data'])
+    title = request.args['title']
+    type = request.args['type']
+    skills = request.args['skills']
+    location = request.args['location']
+    companyName = request.args['companyName']
+
+    print("AYYYYYY !!!!!!!!!1")
+    job_df = read_from_db(title, type, skills, location, companyName, db)
+    print('After')
+    print(job_df)
+    job_count = job_df.shape[0]
+    if job_df.empty:
+        job_count = 0
+        return render_template('no_jobs.html', job_count=job_count)
+    job_df = job_df.drop('Job Description', axis=1)
+    job_df = job_df.drop('_id', axis=1)
+    job_df = job_df.drop('Industries', axis=1)
+    job_df = job_df.drop('Job function', axis=1)
+    job_df = job_df.drop('Total Applicants', axis=1)
+    job_df['Job Link'] = '<a href=' + job_df['Job Link'] + '><div>' + " Apply " + '</div></a>'
+    job_link = job_df.pop("Job Link")
+    job_df.insert(7, "Job Link", job_link)
+    job_df['Job Link'] = job_df['Job Link'].fillna('----')
+    page, per_page, offset = list(get_page_args(page_parameter="page", per_page_parameter="per_page"))
+    print(page, per_page, offset)
+    total = job_count
+    Pagination_results = get_results(job_df, int(offset), int(per_page))
+    print (Pagination_results)
+    pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')
+    print("JUST HERE !!!!!!!!!!!!!!!!1111")
+    print (job_df.index)
+    return render_template('job_posting.html', job_count=job_count,
+                            tables=['''
+<style>
+    .table-class {border-collapse: collapse;    margin: 24px 0;    font-size: 1em;
+    font-family: sans-serif;    min-width: 500px;    box-shadow: 0 0 19px rgba(0, 0, 0, 0.16);}
+    .table-class thead tr {background-color: #009878;    color: #ffffff;    text-align: left;}
+    .table-class th,.table-class td {    text-align:center; padding: 12.4px 15.2px;}
+    .table-class tbody tr {border-bottom: 1.1px solid #dddddd;}
+    .table-class tbody tr:nth-of-type(even) {    background-color: #f3f3f3;}
+    .table-class tbody tr:last-of-type {    border-bottom: 2.1px solid #009878;}
+    .table-class tbody tr.active-row {  font-weight: bold;    color: #009878;}
+    table tr th { text-align:center; }
+</style>
+''' + Pagination_results.to_html(classes="table-class", render_links=True, escape=False)],
+        titles=job_df.columns.values, table=Pagination_results, page=page, per_page=per_page, pagination=pagination)
+
 
 def add(db, job_data):
     """
