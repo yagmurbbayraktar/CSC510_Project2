@@ -35,4 +35,6 @@ def cvAnalizer(CV):
     # print(existing)
     # closing the pdf file object
     pdfFileObj.close()
+    if existing == []:
+        return ['Skill set could not be extracted.']
     return (existing)
