@@ -31,7 +31,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/search', methods=('GET', 'POST'))
+@app.route('/search/', methods=('GET', 'POST'))
 def search():
     """
     Route: '/search'
@@ -112,16 +112,16 @@ def add(db, job_data):
     db.jobs.insert_many(job_data.to_dict('records'))
 
 
-def read_from_db(request, db):
+def read_from_db(title, type, skills, location, companyName, db):
     """
     The read_from_db function reads the job details based on the input provided using regex.
     Returns a DataFrame with the details
     """
-    job_title = request.form['title']
-    job_type = request.form['type']
-    job_location = request.form['location']
-    company_name = request.form['companyName']
-    skills = request.form['skills']
+    job_title = title
+    job_type = type
+    skills = skills
+    job_location = location
+    company_name = companyName
 
     regex_char = ['.', '+', '*', '?', '^', '$', '(', ')', '[', ']', '{', '}', '|']
 
