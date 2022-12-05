@@ -1,6 +1,6 @@
 
 |Notes|Score|evidence|
-|-----|---------|
+|-----|---------|----|
 |Video1|3|Under docs file|
 |Bonus: Xfold improvement|0|NA|
 |Docs: what: point descriptions of each class/function (in isolation) |
