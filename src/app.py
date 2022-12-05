@@ -14,7 +14,10 @@ from pandas import DataFrame  # noqa: E402
 import re  # noqa: E402
 import numpy as np  # noqa: E402
 import os  # noqa: E402
-from src.cv_parser import cvAnalizer  # noqa: E402
+try:
+    from src.cv_parser import cvAnalizer  # noqa: E402
+except:
+    from cv_parser import cvAnalizer  # noqa: E402
 from werkzeug.utils import secure_filename  # noqa: E402
 app = Flask(__name__)
 
@@ -112,7 +115,10 @@ def results():
     skills = request.args['skills']
     location = request.args['location']
     companyName = request.args['companyName']
-    job_df = read_from_db(title, type, skills, location, companyName, db)
+    skills_list = [s.strip() for s in skills_set.split(',')]
+    company_list = [c.strip() for c in companyName_set.split(',')]
+    job_df = get_job_df(title=title, type=type, skills_list=skills_list, location=location,
+    company_list=company_list, db=db)
     job_count = job_df.shape[0]
     if job_df.empty:
         job_count = 0
@@ -193,3 +199,31 @@ def read_from_db(title, type, skills, location, companyName, db):
 
     data = db.jobs.find(data_filter)
     return DataFrame(list(data))
+
+def get_job_df(title, type, skills_list, location, company_list, db):
+    """
+    The get_job_df function searches all the job description from mango db database
+    Based on multiple skills, company name and append all the results by removing the 
+    Duplicates rows and finally returns a DataFrame with the details
+    """
+    job_df = DataFrame()
+    if skills_list and company_list:
+        for skills in skills_list:
+            for companyName in company_list:
+                temp_df = read_from_db(title, type, skills, location, companyName, db)
+                job_df = pd.concat([temp_df, job_df])
+    elif skills_list:
+        companyName = ""
+        for skills in skills_list:
+            temp_df = read_from_db(title, type, skills, location, companyName, db)
+            job_df = pd.concat([temp_df, job_df])
+    elif company_list:
+        skills = ""
+        for companyName in company_list:
+            temp_df = read_from_db(title, type, skills, location, companyName, db)
+            job_df = pd.concat([temp_df, job_df])
+    dup_subsets = ['Job Title', 'Company Name', 'Location', 'Date Posted', 'Seniority level', 'Employment type',
+        'Job Description', 'Job function', 'Total Applicants']
+    job_df = job_df.drop_duplicates(subset=dup_subsets).reset_index().drop('index', axis=1)
+    job_df.index = np.arange(1, len(job_df)+1)
+    return job_df
