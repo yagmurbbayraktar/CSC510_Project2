@@ -39,7 +39,7 @@ def upload_file():
 def uploader():
     """
     Route: '/uploader'
-    The uploader function requires users to take a local file(resume) as a input, it will save the 
+    The uploader function requires users to take a local file(resume) as a input, it will save the
     file in the program root path And then, will scan the resume through to find the relative skills
     maybe used.
     """
@@ -87,7 +87,7 @@ def search():
         skills = request.form.get('skills')
         location = request.form.get('location')
         companyName = request.form.get('companyName')
-        return redirect(url_for('results', title=title, type=type, skills=skills, location=location, 
+        return redirect(url_for('results', title=title, type=type, skills=skills, location=location,
                                 companyName=companyName))
     return render_template('get_job_postings.html')
 
@@ -100,7 +100,7 @@ def search2():
         skills = request.form.get('skills')
         location = request.form.get('location')
         companyName = request.form.get('companyName')
-        return redirect(url_for('results', title=title, type=type, skills=skills, location=location, 
+        return redirect(url_for('results', title=title, type=type, skills=skills, location=location,
                                 companyName=companyName))
     return render_template('get_job_postings2.html', string=string)
 
