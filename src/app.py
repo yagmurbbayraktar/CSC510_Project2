@@ -7,7 +7,8 @@ Use of this source code is governed by an MIT-style
 license that can be found in the LICENSE file or at
 https://opensource.org/licenses/MIT.
 """
-from flask import Flask, render_template, request  # noqa: E402
+from flask import Flask, render_template, request, redirect, url_for  # noqa: E402
+from flask_paginate import Pagination, get_page_args
 from flask_pymongo import PyMongo  # noqa: E402
 from pandas import DataFrame  # noqa: E402
 import re  # noqa: E402
@@ -18,6 +19,8 @@ app.config["MONGO_URI"] = "mongodb://localhost:27017/job_analyzer"
 mongodb_client = PyMongo(app)
 db = mongodb_client.db
 
+def get_results(table, offset=0, per_page=5):
+    return table[offset: offset+per_page]
 
 @app.route('/')
 def index():
@@ -28,7 +31,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/search', methods=('GET', 'POST'))
+@app.route('/search/', methods=('GET', 'POST'))
 def search():
     """
     Route: '/search'
@@ -36,36 +39,67 @@ def search():
     Upon submission fetches the job postings from the database and renders job_posting.html
     """
     if request.method == 'POST':
-        job_df = read_from_db(request, db)
-        job_count = job_df.shape[0]
-        if job_df.empty:
-            job_count = 0
-            return render_template('no_jobs.html', job_count=job_count)
-        job_df = job_df.drop('Job Description', axis=1)
-        job_df = job_df.drop('_id', axis=1)
-        job_df = job_df.drop('Industries', axis=1)
-        job_df = job_df.drop('Job function', axis=1)
-        job_df = job_df.drop('Total Applicants', axis=1)
-        job_df['Job Link'] = '<a href=' + job_df['Job Link'] + '><div>' + " Apply " + '</div></a>'
-        job_link = job_df.pop("Job Link")
-        job_df.insert(7, "Job Link", job_link)
-        job_df['Job Link'] = job_df['Job Link'].fillna('----')
-        return render_template('job_posting.html', job_count=job_count,
-                               tables=['''
-    <style>
-        .table-class {border-collapse: collapse;    margin: 24px 0;    font-size: 1em;
-        font-family: sans-serif;    min-width: 500px;    box-shadow: 0 0 19px rgba(0, 0, 0, 0.16);}
-        .table-class thead tr {background-color: #009878;    color: #ffffff;    text-align: left;}
-        .table-class th,.table-class td {    text-align:center; padding: 12.4px 15.2px;}
-        .table-class tbody tr {border-bottom: 1.1px solid #dddddd;}
-        .table-class tbody tr:nth-of-type(even) {    background-color: #f3f3f3;}
-        .table-class tbody tr:last-of-type {    border-bottom: 2.1px solid #009878;}
-        .table-class tbody tr.active-row {  font-weight: bold;    color: #009878;}
-        table tr th { text-align:center; }
-    </style>
-    ''' + job_df.to_html(classes="table-class", render_links=True, escape=False)],
-            titles=job_df.columns.values)
+        # print("WE ARE HERE !!!!!!!!1")
+        # print (request.form.get("skills"))
+        # data = {'title':request.form.get('title'),'type':request.form.get('type'),'skills':request.form.get('skills'),'location':request.form.get('location'),'companyName':request.form.get('companyName')}
+        # data = [request.form.get('title'),request.form.get('type'),request.form.get('skills'),request.form.get('location'),request.form.get('companyName')]
+        title = request.form.get('title')
+        type = request.form.get('type')
+        skills = request.form.get('skills')
+        location = request.form.get('location')
+        companyName = request.form.get('companyName')
+        return redirect(url_for('results',title=title, type=type, skills=skills, location=location, companyName=companyName))
     return render_template('get_job_postings.html')
+
+@app.route('/results/')
+def results():
+    # print(request.args['data'])
+    title = request.args['title']
+    type = request.args['type']
+    skills = request.args['skills']
+    location = request.args['location']
+    companyName = request.args['companyName']
+
+    print("AYYYYYY !!!!!!!!!1")
+    job_df = read_from_db(title, type, skills, location, companyName, db)
+    print('After')
+    print(job_df)
+    job_count = job_df.shape[0]
+    if job_df.empty:
+        job_count = 0
+        return render_template('no_jobs.html', job_count=job_count)
+    job_df = job_df.drop('Job Description', axis=1)
+    job_df = job_df.drop('_id', axis=1)
+    job_df = job_df.drop('Industries', axis=1)
+    job_df = job_df.drop('Job function', axis=1)
+    job_df = job_df.drop('Total Applicants', axis=1)
+    job_df['Job Link'] = '<a href=' + job_df['Job Link'] + '><div>' + " Apply " + '</div></a>'
+    job_link = job_df.pop("Job Link")
+    job_df.insert(7, "Job Link", job_link)
+    job_df['Job Link'] = job_df['Job Link'].fillna('----')
+    page, per_page, offset = list(get_page_args(page_parameter="page", per_page_parameter="per_page"))
+    print(page, per_page, offset)
+    total = job_count
+    Pagination_results = get_results(job_df, int(offset), int(per_page))
+    print (Pagination_results)
+    pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')
+    print("JUST HERE !!!!!!!!!!!!!!!!1111")
+    print (job_df.index)
+    return render_template('job_posting.html', job_count=job_count,
+                            tables=['''
+<style>
+    .table-class {border-collapse: collapse;    margin: 24px 0;    font-size: 1em;
+    font-family: sans-serif;    min-width: 500px;    box-shadow: 0 0 19px rgba(0, 0, 0, 0.16);}
+    .table-class thead tr {background-color: #009878;    color: #ffffff;    text-align: left;}
+    .table-class th,.table-class td {    text-align:center; padding: 12.4px 15.2px;}
+    .table-class tbody tr {border-bottom: 1.1px solid #dddddd;}
+    .table-class tbody tr:nth-of-type(even) {    background-color: #f3f3f3;}
+    .table-class tbody tr:last-of-type {    border-bottom: 2.1px solid #009878;}
+    .table-class tbody tr.active-row {  font-weight: bold;    color: #009878;}
+    table tr th { text-align:center; }
+</style>
+''' + Pagination_results.to_html(classes="table-class", render_links=True, escape=False)],
+        titles=job_df.columns.values, table=Pagination_results, page=page, per_page=per_page, pagination=pagination)
 
 
 def add(db, job_data):
@@ -78,16 +112,16 @@ def add(db, job_data):
     db.jobs.insert_many(job_data.to_dict('records'))
 
 
-def read_from_db(request, db):
+def read_from_db(title, type, skills, location, companyName, db):
     """
     The read_from_db function reads the job details based on the input provided using regex.
     Returns a DataFrame with the details
     """
-    job_title = request.form['title']
-    job_type = request.form['type']
-    job_location = request.form['location']
-    company_name = request.form['companyName']
-    skills = request.form['skills']
+    job_title = title
+    job_type = type
+    skills = skills
+    job_location = location
+    company_name = companyName
 
     regex_char = ['.', '+', '*', '?', '^', '$', '(', ')', '[', ']', '{', '}', '|']
 
