@@ -41,7 +41,7 @@ def test_search_page_submit():
         "location": "",
         "companyName": "",
         "skills": "",
-    })
+    }, follow_redirects=True)
     assert response.status_code == 200
 
 
@@ -55,7 +55,7 @@ def test_search_page_submit_zero_results():
         "location": "xxxxxxx",
         "companyName": "wwwwwwww",
         "skills": "vvvvvvvvv",
-    })
+    }, follow_redirects=True)
     assert response.status_code == 200
     assert b"Sorry, there are no current openings with given criteria"
 
