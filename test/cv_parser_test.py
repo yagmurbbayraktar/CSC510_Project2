@@ -1,8 +1,6 @@
-try:
-    import cv_parser
-except ImportError as e:
-    import sys
-    sys.path.append("./src")
+
+import sys
+sys.path.append("./src")
 
 import cv_parser
 
