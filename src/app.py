@@ -43,7 +43,7 @@ def upload_file():
 def uploader():
     """
     Route: '/uploader'
-    The uploader function requires users to take a local file(resume) as a input, it will save the
+    The uploader function requires users to take a local file (resume) as a input, it will save the
     file in the program root path And then, will scan the resume through to find the relative skills
     maybe used.
     """
