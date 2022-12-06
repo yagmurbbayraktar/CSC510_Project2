@@ -124,6 +124,23 @@ def test_multiple_skills_single_company_search():
     }, follow_redirects=True)
     assert response.status_code == 200
 
+    
+def test_single_skills_multiple_company_search():
+    """
+    This test verifies that search page works correctly when the multiple company names and multiple skills
+    are given as an input
+    """
+
+    add_sample_data()
+    response = app.test_client().post("/search", data={
+        "title": "",
+        "type": "",
+        "location": "",
+        "companyName": "Apple, cisco",
+        "skills": "java",
+    }, follow_redirects=True)
+    assert response.status_code == 200
+    
 def test_add_db():
     """
     This test verifies that sample data can be added to the database successfully
