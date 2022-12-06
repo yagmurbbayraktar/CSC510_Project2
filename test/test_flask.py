@@ -58,6 +58,55 @@ def test_search_page_submit_zero_results():
     }, follow_redirects=True)
     assert response.status_code == 200
     assert b"Sorry, there are no current openings with given criteria"
+    
+    
+def test_multiple_skills_search():
+    """
+    This test verifies that search page works fine when the multiple skills is given as an input
+    """
+
+    add_sample_data()
+    response = app.test_client().post("/search", data={
+        "title": "",
+        "type": "",
+        "location": "",
+        "companyName": "",
+        "skills": "python,java",
+    }, follow_redirects=True)
+    assert response.status_code == 200
+    
+
+def test_multiple_company_search():  # type: ignore
+    """
+    This test verifies that search page works fine when the multiple company names is given as an input
+    """
+
+    add_sample_data()
+    response = app.test_client().post("/search", data={
+        "title": "",
+        "type": "",
+        "location": "",
+        "companyName": "Apple, cisco",
+        "skills": "",
+    }, follow_redirects=True)
+    assert response.status_code == 200
+    
+    
+def test_multiple_skills_company_search():
+    """
+    This test verifies that search page works correctly when the multiple company names and multiple skills 
+    are given as an input
+    """
+
+    add_sample_data()
+    response = app.test_client().post("/search", data={
+        "title": "",
+        "type": "",
+        "location": "",
+        "companyName": "Apple, cisco",
+        "skills": "python,java",
+    }, follow_redirects=True)
+    assert response.status_code == 200
 
 
 def test_add_db():
