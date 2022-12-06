@@ -3,7 +3,6 @@ import pandas as pd
 
 db = mongodb_client.db
 
-
 def test_home_page():
     """
     This test verifies that the home page works correctly
