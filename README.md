@@ -30,7 +30,7 @@ So, leave the tedious and monotonous task of looking up the job postings to our 
 
 Unlike many other job portals, JobCruncher is a simple, lightweight, online tool that helps users get clear information about the jobs posted on LinkedIn and further help the user finetune the results.
 
-Further, it helps to provide the user insights about the job postings and as the scraper is executed every day, the user is always provided with the most recent job postings. With the new added extension of JobCruncher, you can upload your CV and let it show you the skillset that you should be looking for. The new extension of JobCruncher also allows you to search for jobs with multiple skills using a single search!
+Further, it helps to provide the user insights about the job postings and as the scraper is executed every day, the user is always provided with the most recent job postings. With the new added extension of JobCruncher, you can upload your CV and let it show you the skillset that you should be looking for. The new extension of JobCruncher also allows you to search for jobs with multiple skills using a single search! The new pagination structure allows a neat way to view long lists of jobs!
 
 
 # Installation
