@@ -5,7 +5,7 @@ import PyPDF2
 
 
 def cvAnalizer(CV):
-    
+    # defining skill sets
     skills = ['Java', 'C++', 'Matlab', 'Lua', 'Objective C', 'Python', 'Swift', 'SQL',
               'React', 'Flask', 'Django', 'HTML', 'CSS', 'Ruby', 'Git', 'Javascript', 'Julia']
     existing = []
