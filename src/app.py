@@ -116,6 +116,11 @@ def search2():
 
 @app.route('/results/')
 def results():
+    """
+    Route: '/results/'
+    The search function renders the get_job_postings.html
+    Takes data from the search route and render job postings based on that.
+    """
     title = request.args['title']
     type = request.args['type']
     skills_set = request.args['skills']
