@@ -33,7 +33,6 @@ def cvAnalizer(CV):
         for s in skills:
             if s.lower() in text_fixed.lower():
                 existing.append(s)
-    # print(existing)
     # closing the pdf file object
     pdfFileObj.close()
     if existing == []:
