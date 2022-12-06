@@ -5,10 +5,11 @@ import PyPDF2
 
 
 def cvAnalizer(CV):
-    # creating a pdf file object
+    
     skills = ['Java', 'C++', 'Matlab', 'Lua', 'Objective C', 'Python', 'Swift', 'SQL',
               'React', 'Flask', 'Django', 'HTML', 'CSS', 'Ruby', 'Git', 'Javascript', 'Julia']
     existing = []
+    # creating a pdf file object
     pdfFileObj = open(CV, 'rb')
 
     # initializing punctuations string
