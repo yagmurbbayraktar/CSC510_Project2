@@ -1,6 +1,5 @@
-from src.app import app, add, mongodb_client
-import pandas as pd
-from flask import Flask, render_template, request, redirect, url_for  # noqa: E402
+from src.app import app, mongodb_client
+from flask import render_template  # noqa: E402
 
 db = mongodb_client.db
 
@@ -10,9 +9,7 @@ def test_upload():
     This test verifies that the upload page works correctly
     """
 
-    assert (render_template('upload.html') == True)
-
-
+    assert (render_template('upload.html') == True)  # noqa: E712
 
 def test_uploader_page():
     """
