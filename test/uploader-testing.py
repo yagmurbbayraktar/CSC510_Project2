@@ -4,14 +4,14 @@ from flask import render_template  # noqa: E402
 db = mongodb_client.db
 
 
-def test_upload():
+def upload2():
     """
     This test verifies that the upload page works correctly
     """
 
     assert (render_template('upload.html') == True)  # noqa: E712
 
-def test_uploader_page():  # noqa: E302
+def uploader_page():  # noqa: E302
     """
     This test verifies that search page displays the user input form correctly
     """
