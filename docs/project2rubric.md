@@ -1,17 +1,16 @@
 
 |Notes|Score|evidence|
 |-----|---------|----|
-|Video1|3|Under docs file|
+|Video1|3|[Video](https://github.com/yagmurbbayraktar/CSC510_Project2/blob/main/docs/Demo.mp4)|
 |Bonus: Xfold improvement|0|NA|
-|Docs: what: point descriptions of each class/function (in isolation) |
-|Use of style checkers |config files in GH showing your config|
-|Use of code formatters. |config files in GH showing your this formatter's  config|
-|Use of syntax checkers. |config files iin  GH showing this checker's config  |
-|Use of code coverage |config files in GH|
-|Other automated analysis tools|config files in GH|
-|Workload is spread over the whole team (one team member is often Xtimes more productive than the others... 
-|but nevertheless, here is a track record that everyone is contributing a lot)|evidence in GH|
-|Number of commits|in GH|
+|Docs: what: point descriptions of each class/function (in isolation)|3|[Class descriptions](https://github.com/yagmurbbayraktar/CSC510_Project2/blob/main/docs/ClassDescriptions.md)
+|Use of style checkers |||
+|Use of code formatters. |||
+|Use of syntax checkers. |||
+|Use of code coverage |3|[Readme](https://github.com/yagmurbbayraktar/CSC510_Project2#readme)|
+|Other automated analysis tools|||
+|Workload is spread over the whole team|3|[Contributors](https://github.com/yagmurbbayraktar/CSC510_Project2/graphs/contributors)|
+|Number of commits|3|[Contributors](https://github.com/yagmurbbayraktar/CSC510_Project2/graphs/contributors)|
 |Number of commits: by different people|in GH|
 |Issues reports: there are **many**|
 |Issues are being closed|evidence in GH|
