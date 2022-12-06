@@ -64,7 +64,7 @@ def uploader():
 
         return render_template('upload.html')
 
-
+#get_results does calculation for pagination by setting page offset. 
 def get_results(table, offset=0, per_page=5):
     return table[offset: offset+per_page]
 
