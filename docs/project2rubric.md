@@ -1,5 +1,5 @@
 
-|Notes|Score|evidence|
+|Notes|Score = 83|evidence|
 |-----|---------|----|
 |Video1|3|[Video](https://github.com/yagmurbbayraktar/CSC510_Project2/blob/main/docs/Demo.mp4)|
 |Bonus: Xfold improvement|0|NA|
@@ -14,12 +14,12 @@
 |Number of commits: by different people|3|[Contributors](https://github.com/yagmurbbayraktar/CSC510_Project2/graphs/contributors)|
 |Issues reports: there are **many**|3|[Issues](https://github.com/yagmurbbayraktar/CSC510_Project2/issues)|
 |Issues are being closed|3|[Issues](https://github.com/yagmurbbayraktar/CSC510_Project2/issues)|
-|DOI badge: exists|3|3|[Readme](https://github.com/yagmurbbayraktar/CSC510_Project2#readme)|
-|Docs: doco generated, format not ugly|3|[Documentation](https://github.com/yagmurbbayraktar/CSC510_Project2/tree/main/src)|
-|Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z|3|[Documentation, ](https://github.com/yagmurbbayraktar/CSC510_Project2/tree/main/src)[Readme](https://github.com/yagmurbbayraktar/CSC510_Project2#readme)|
+|DOI badge: exists|3|[Readme](https://github.com/yagmurbbayraktar/CSC510_Project2#readme)|
+|Docs: doco generated, format not ugly|2|[Documentation](https://github.com/yagmurbbayraktar/CSC510_Project2/tree/main/src)|
+|Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z|2|[Documentation, ](https://github.com/yagmurbbayraktar/CSC510_Project2/tree/main/src)[Readme](https://github.com/yagmurbbayraktar/CSC510_Project2#readme)|
 |Docs: why: docs tell a story, motivate the whole thing, deliver a punchline that makes you want to rush out and use the thing|3|[Documentation, ](https://github.com/yagmurbbayraktar/CSC510_Project2/tree/main/src)[Readme](https://github.com/yagmurbbayraktar/CSC510_Project2#readme)|
 |Docs: short video, animated, hosted on your repo. That convinces people why they want to work on your code.|3|[Documentation, ](https://github.com/yagmurbbayraktar/CSC510_Project2/tree/main/src)[Video](https://github.com/yagmurbbayraktar/CSC510_Project2/blob/main/docs/Demo.mp4)||
-|Use of version control tools|
+|Use of version control tools|3|Github itself|
 |Test cases exist|3|[Tests](https://github.com/yagmurbbayraktar/CSC510_Project2/tree/main/test)|
 |Test cases are routinely executed|3|Github workflow, automated|
 |The files CONTRIBUTING.md lists coding standards and lots of tips on how to extend the system without screwing things up|3|[Contributing](https://github.com/yagmurbbayraktar/CSC510_Project2/blob/main/CONTRIBUTING.md)|
