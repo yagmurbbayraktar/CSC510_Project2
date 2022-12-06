@@ -2,7 +2,7 @@
 import sys
 sys.path.append("./src")
 
-import cv_parser
+import cv_parser  # noqa: E402
 
 
 skillCV1 = cv_parser.cvAnalizer('./src/upload/DummyCV1.pdf')
