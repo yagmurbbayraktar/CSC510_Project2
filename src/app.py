@@ -81,7 +81,7 @@ def index():
 @app.route('/search/', methods=('GET', 'POST'))
 def search():
     """
-    Route: '/search'
+    Route: '/search/'
     The search function renders the get_job_postings.html.
     Upon submission fetches the job postings from the database and renders job_posting.html
     """
