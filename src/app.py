@@ -151,7 +151,8 @@ def results():
     table tr th { text-align:center; }
  </style>
  ''' + Pagination_results.to_html(classes="table-class", render_links=True, escape=False)],
-   titles=job_df.columns.values, table=Pagination_results, page=page, per_page=per_page, pagination=pagination)  # noqa: E128
+   titles=job_df.columns.values,  # noqa: E128
+                           table=Pagination_results, page=page, per_page=per_page, pagination=pagination)  # noqa: E128
 
 
 def add(db, job_data):
