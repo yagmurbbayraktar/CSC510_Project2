@@ -1,4 +1,4 @@
-# JobCruncher
+# JobCruncher Extended!
 
 
 <p align="center">
@@ -20,7 +20,7 @@
 
 
 
-Juggling multiple assignments, quizzes, projects, presentations, and clutching the deadlines every week? Feel like you have no time to watch your favorite series or sports team play let alone search for job posting on a day-to-day basis? Here comes JobCruncher.
+Juggling multiple assignments, quizzes, projects, presentations, and clutching the deadlines every week? Feel like you have no time to watch your favorite series or sports team play let alone search for job posting on a day-to-day basis? Here comes JobCruncher Extended.
 
 JobCruncher is an online job scraping and analysis tool that provides the user with the ability to filter jobs posted on Linkedin based on the user’s interest. LinkedIn is an employment-oriented online service that is a platform primarily used for professional networking and career development. This allows job seekers to post their CVs and employers to post jobs, hence a perfect site to scrap the job details from.
 
@@ -28,11 +28,9 @@ So, leave the tedious and monotonous task of looking up the job postings to our 
 
 # So why use JobCruncher instead?
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/v=_ASFR0DymiU&ab_channel=TejasPrabhu/0.jpg)](https://www.youtube.com/watch?v=_ASFR0DymiU&ab_channel=TejasPrabhu)
-
 Unlike many other job portals, JobCruncher is a simple, lightweight, online tool that helps users get clear information about the jobs posted on LinkedIn and further help the user finetune the results.
 
-Further, it helps to provide the user insights about the job postings and as the scraper is executed every day, the user is always provided with the most recent job postings.
+Further, it helps to provide the user insights about the job postings and as the scraper is executed every day, the user is always provided with the most recent job postings. With the new added extension of JobCruncher, you can upload your CV and let it show you the skillset that you should be looking for. The new extension of JobCruncher also allows you to search for jobs with multiple skills using a single search!
 
 
 # Installation
