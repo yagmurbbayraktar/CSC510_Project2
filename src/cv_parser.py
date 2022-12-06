@@ -1,5 +1,5 @@
 
-# importing required modules
+# importing required libraries
 import PyPDF2
 # import re
 
