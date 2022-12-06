@@ -16,50 +16,6 @@ import pandas as pd  # noqa: E402
 from src.scraper import JobData, ROOT_DIR  # noqa: E402
 
 
-def test_webdriver():
-    """
-    The function test_webdriver tests the Chrome Web Driver.
-    """
-    job_obj = JobData()
-    job_obj.setup_webdriver()
-    job_obj.driver.quit()
-
-
-def test_linkedin_url():
-    """
-    The function test_linkedin_url tests if the url for scraping created correctly.
-    """
-    job_title_list = ["", "Data Scientist"]
-    job_location_list = ["", "California"]
-    distance_list = ["", 100]
-    company_list = ["", "Amazon"]
-
-    job_obj = JobData()
-    job_obj.setup_webdriver()
-
-    for job_title, job_location, distance, company in itertools.product(job_title_list, job_location_list,
-                                                                        distance_list, company_list):
-        job_obj.update_attributes(job_title=job_title, job_location=job_location, distance=distance,
-                                  company=company)
-        url = job_obj.get_linkedin_url()
-        job_obj.driver.get(url)
-
-        assert type(url) == str
-
-        time.sleep(1)
-
-    job_obj.driver.quit()
-
-
-def test_scraper_zero_jobs():
-    """
-    The test_scraper_zero_jobs checks for number_jobs = 0
-    """
-    number_jobs = 0
-    job_obj = JobData(number_jobs=number_jobs)
-    job_obj.scrape_data(save_csv=False)
-
-
 def test_update_attributes():
     """
     The test_update_attributes checks if the attributes are updated or not.
