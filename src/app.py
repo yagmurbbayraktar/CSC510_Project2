@@ -82,8 +82,8 @@ def index():
 def search():
     """
     Route: '/search/'
-    The search function renders the get_job_postings.html.
-    Upon submission fetches the job postings from the database and renders job_posting.html
+    The search function takes data input from form and redirects to 
+    results route while sending all the data via POST method.
     """
     if request.method == 'POST':
         title = request.form.get('title')
