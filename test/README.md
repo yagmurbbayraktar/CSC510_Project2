@@ -1,2 +1,2 @@
 # Test
-This folder contains files regarding testing.
+This folder contains various files for testing different components of the implementation.
