@@ -98,6 +98,11 @@ def search():
 
 @app.route('/search2/', methods=('GET', 'POST'))
 def search2():
+    """
+    Route: '/search2/'
+    The search2 function renders the get_job_postings.html.
+    After the CV is Parsed this send data to be displayed for suggestions. 
+    """
     if request.method == 'POST':
         title = request.form.get('title')
         type = request.form.get('type')
