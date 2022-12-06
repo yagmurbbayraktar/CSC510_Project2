@@ -11,7 +11,7 @@ def test_upload():
 
     assert (render_template('upload.html') == True)  # noqa: E712
 
-def test_uploader_page():
+def test_uploader_page():  # noqa: E302
     """
     This test verifies that search page displays the user input form correctly
     """
